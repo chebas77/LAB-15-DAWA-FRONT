@@ -177,55 +177,84 @@ export default function HomePage() {
             <Link
               key={product.id}
               href={`/products/${product.id}`}
-              className="group bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-gray-300 transition-all duration-300 transform hover:-translate-y-1"
+              className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300 transform hover:-translate-y-1"
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="flex items-start justify-between mb-3">
-                {product.categoryId ? (
-                  <span className="inline-block px-3 py-1 text-xs font-semibold bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-full">
-                    {categories.find(c => c.id === product.categoryId)?.nombre || 'Sin categoría'}
-                  </span>
-                ) : (
-                  <div></div>
-                )}
-                <svg
-                  className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
+              {/* Imagen del producto */}
+              <div className="relative h-48 bg-gray-100 overflow-hidden">
+                {product.imageUrl ? (
+                  <img
+                    src={product.imageUrl}
+                    alt={product.nombre}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                </svg>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+                    <svg
+                      className="w-16 h-16 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                )}
               </div>
-              
-              <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                {product.nombre}
-              </h2>
-              
-              <div className="flex items-baseline gap-2 mb-3">
-                <p className="text-3xl font-bold text-gray-900">
-                  ${product.precio}
-                </p>
-              </div>
-              
-              {product.descripcion && (
-                <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
-                  {product.descripcion}
-                </p>
-              )}
-              
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <span className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors flex items-center gap-1">
-                  Ver detalles
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-3">
+                  {product.categoryId ? (
+                    <span className="inline-block px-3 py-1 text-xs font-semibold bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-full">
+                      {categories.find(c => c.id === product.categoryId)?.nombre || 'Sin categoría'}
+                    </span>
+                  ) : (
+                    <div></div>
+                  )}
+                  <svg
+                    className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
-                </span>
+                </div>
+                
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
+                  {product.nombre}
+                </h2>
+                
+                <div className="flex items-baseline gap-2 mb-3">
+                  <p className="text-3xl font-bold text-gray-900">
+                    ${product.precio}
+                  </p>
+                </div>
+                
+                {product.descripcion && (
+                  <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                    {product.descripcion}
+                  </p>
+                )}
+                
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <span className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors flex items-center gap-1">
+                    Ver detalles
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </Link>
           ))}

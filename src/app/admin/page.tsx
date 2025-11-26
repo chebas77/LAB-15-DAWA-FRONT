@@ -149,10 +149,10 @@ function AdminPageContent() {
   }
 
   const totalProducts = products.length;
-  const totalCategories = new Set(products.map(p => p.categoria).filter(Boolean)).size;
+  const totalCategories = categories.length;
   const averagePrice = products.length > 0
-    ? (products.reduce((sum, p) => sum + p.precio, 0) / products.length).toFixed(2)
-    : 0;
+    ? (products.reduce((sum, p) => sum + parseFloat(p.precio.toString()), 0) / products.length).toFixed(2)
+    : '0.00';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -164,43 +164,43 @@ function AdminPageContent() {
       </div>
 
       {/* Estadísticas */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-4 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-blue-600 mb-1">Total Productos</p>
-              <p className="text-3xl font-bold text-blue-900">{totalProducts}</p>
+              <p className="text-xs sm:text-sm font-medium text-blue-600 mb-1">Total Productos</p>
+              <p className="text-2xl sm:text-3xl font-bold text-blue-900">{totalProducts}</p>
             </div>
-            <div className="bg-blue-200 rounded-full p-3">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-blue-200 rounded-full p-2 sm:p-3">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
             </div>
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-6">
+        <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-4 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-green-600 mb-1">Categorías</p>
-              <p className="text-3xl font-bold text-green-900">{totalCategories}</p>
+              <p className="text-xs sm:text-sm font-medium text-green-600 mb-1">Categorías</p>
+              <p className="text-2xl sm:text-3xl font-bold text-green-900">{totalCategories}</p>
             </div>
-            <div className="bg-green-200 rounded-full p-3">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-green-200 rounded-full p-2 sm:p-3">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
               </svg>
             </div>
           </div>
         </div>
         
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-6">
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-4 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-purple-600 mb-1">Precio Promedio</p>
-              <p className="text-3xl font-bold text-purple-900">${averagePrice}</p>
+              <p className="text-xs sm:text-sm font-medium text-purple-600 mb-1">Precio Promedio</p>
+              <p className="text-2xl sm:text-3xl font-bold text-purple-900">${averagePrice}</p>
             </div>
-            <div className="bg-purple-200 rounded-full p-3">
-              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-purple-200 rounded-full p-2 sm:p-3">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -208,9 +208,9 @@ function AdminPageContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         <div className="lg:col-span-1">
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 sticky top-8">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6 lg:sticky lg:top-8">
             <div className="flex items-center gap-2 mb-6">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                 editingId ? 'bg-blue-100' : 'bg-green-100'
@@ -347,24 +347,24 @@ function AdminPageContent() {
 
         <div className="lg:col-span-2">
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h3 className="text-lg font-bold text-gray-900">Lista de Productos</h3>
-              <p className="text-sm text-gray-600 mt-1">{products.length} productos en total</p>
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-200 bg-gray-50">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Lista de Productos</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mt-1">{products.length} productos en total</p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[640px]">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                       Producto
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                       Categoría
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                       Precio
                     </th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs font-bold text-gray-600 uppercase tracking-wider">
                       Acciones
                     </th>
                   </tr>
@@ -372,43 +372,43 @@ function AdminPageContent() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {products.map((product) => (
                     <tr key={product.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4">
                         <div className="text-sm font-semibold text-gray-900">{product.nombre}</div>
                         {product.descripcion && (
                           <div className="text-xs text-gray-500 mt-1 line-clamp-1">{product.descripcion}</div>
                         )}
                       </td>
-                      <td className="px-6 py-4">
-                        {product.categoria ? (
+                      <td className="px-3 sm:px-6 py-3 sm:py-4">
+                        {product.categoryId ? (
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                            {product.categoria}
+                            {product.categoryId && categories.find(c => c.id === product.categoryId)?.nombre}
                           </span>
                         ) : (
                           <span className="text-gray-400 text-sm">Sin categoría</span>
                         )}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4">
                         <span className="text-sm font-bold text-gray-900">${product.precio}</span>
                       </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 text-right">
+                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                           <button
                             onClick={() => handleEdit(product)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
+                            className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
-                            Editar
+                            <span className="hidden sm:inline">Editar</span>
                           </button>
                           <button
                             onClick={() => handleDelete(product.id)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors"
+                            className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
-                            Eliminar
+                            <span className="hidden sm:inline">Eliminar</span>
                           </button>
                         </div>
                       </td>
