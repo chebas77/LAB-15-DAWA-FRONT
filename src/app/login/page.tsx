@@ -19,12 +19,12 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
-    const success = await login(email, password);
+    const result = await login(email, password);
 
-    if (success) {
+    if (result.success) {
       router.push('/');
     } else {
-      setError('Credenciales incorrectas');
+      setError(result.message || 'Credenciales incorrectas');
     }
 
     setLoading(false);

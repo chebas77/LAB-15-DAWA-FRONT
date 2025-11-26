@@ -11,8 +11,8 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (username: string, email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  register: (username: string, email: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -86,7 +86,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     verifySession();
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<{ success: boolean; message?: string }> => {
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
       const res = await fetch(`${API_URL}/auth/login`, {
@@ -95,30 +95,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        // El backend retorna: { success, message, data: { user, token } }
-        if (data.success && data.data?.user && data.data?.token) {
-          const user: User = {
-            id: data.data.user.id,
-            username: data.data.user.nombre || data.data.user.username,
-            email: data.data.user.email,
-            role: data.data.user.rol === 'admin' ? 'ADMIN' : 'CUSTOMER',
-          };
-          setUser(user);
-          localStorage.setItem('user', JSON.stringify(user));
-          localStorage.setItem('token', data.data.token);
-          return true;
-        }
+      const data = await res.json();
+
+      if (res.ok && data.success && data.data?.user && data.data?.token) {
+        const user: User = {
+          id: data.data.user.id,
+          username: data.data.user.nombre || data.data.user.username,
+          email: data.data.user.email,
+          role: data.data.user.rol === 'admin' ? 'ADMIN' : 'CUSTOMER',
+        };
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', data.data.token);
+        return { success: true, message: data.message || 'Inicio de sesión exitoso' };
       }
-      return false;
+
+      return { success: false, message: data.message || 'Credenciales incorrectas' };
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      return false;
+      return { success: false, message: 'Error de conexión con el servidor' };
     }
   };
 
-  const register = async (username: string, email: string, password: string): Promise<boolean> => {
+  const register = async (username: string, email: string, password: string): Promise<{ success: boolean; message?: string }> => {
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
       const res = await fetch(`${API_URL}/auth/register`, {
@@ -127,26 +126,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ nombre: username, email, password }),
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        // El backend retorna: { success, message, data: { user, token } }
-        if (data.success && data.data?.user && data.data?.token) {
-          const user: User = {
-            id: data.data.user.id,
-            username: data.data.user.nombre || data.data.user.username,
-            email: data.data.user.email,
-            role: data.data.user.rol === 'admin' ? 'ADMIN' : 'CUSTOMER',
-          };
-          setUser(user);
-          localStorage.setItem('user', JSON.stringify(user));
-          localStorage.setItem('token', data.data.token);
-          return true;
-        }
+      const data = await res.json();
+
+      if (res.ok && data.success && data.data?.user && data.data?.token) {
+        const user: User = {
+          id: data.data.user.id,
+          username: data.data.user.nombre || data.data.user.username,
+          email: data.data.user.email,
+          role: data.data.user.rol === 'admin' ? 'ADMIN' : 'CUSTOMER',
+        };
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', data.data.token);
+        return { success: true, message: data.message || '¡Cuenta creada exitosamente!' };
       }
-      return false;
+
+      return { success: false, message: data.message || 'Error al crear la cuenta' };
     } catch (error) {
       console.error('Error al registrarse:', error);
-      return false;
+      return { success: false, message: 'Error de conexión con el servidor' };
     }
   };
 
