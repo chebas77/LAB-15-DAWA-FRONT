@@ -5,11 +5,11 @@ departamento: "Tecnología Digital"
 carrera: "Diseño y Desarrollo de Software"
 carrera_codigo: "C24"
 semestre: "2026-1"
-ciclo: PENDIENTE
-grupo: "13"
-seccion: "PENDIENTE"
-modalidad: "PENDIENTE"
-sede: "PENDIENTE"
+ciclo: 6
+grupo: "G13"
+seccion: "SI-601"
+modalidad: "P"
+sede: "Sur"
 titulo: "Sistema de control escolar inteligente basado en reconocimiento facial, para la gestión de asistencia y control parental"
 autores: ["Heredia Sovero, Adrian Enrique", "Rodriguez Jara, Manuel Sebastian"]
 asesor: "Leon Suiyon, Juan Jose"
