@@ -13,8 +13,8 @@ sede: "Sur"
 titulo: "Sistema de control escolar inteligente basado en reconocimiento facial, para la gestión de asistencia y control parental"
 autores: ["Heredia Sovero, Adrian Enrique", "Rodriguez Jara, Manuel Sebastian"]
 asesor: "Leon Suiyon, Juan Jose"
-fecha: "2025-11-XX"
-año: 2025
+fecha: "2026-07-01"
+año: 2026
 palabras_clave: ["control de asistencia", "reconocimiento facial", "aplicación web", "notificaciones a padres", "transformación digital"]
 keywords: ["attendance control", "facial recognition", "web application", "parent notifications", "digital transformation"]
 ---
